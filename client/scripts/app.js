@@ -23,7 +23,14 @@
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
   init: function () {
+    $('#main').on('click', '.username', function(){
+      this.handleUsernameClick();
+    }.bind(this))
     
+    $('#send').off('submit');
+    $('#send').on('submit', '.submit', function(e){
+      this.handleSubmit();
+    }.bind(this))
   },
   send: function (message) {
     $.ajax({
@@ -61,13 +68,7 @@ var app = {
     $('#chats').empty();
   },
   renderMessage: function (message) {
-    var element = document.createElement('<p>' + message.text + '</p>');
-    //var element = ('<p>' + message.text + '</p>');
-    element.setAttribute('username', message.username);
-    element.setAttribute('roomname', message.roomname);
-    $(username).text(message.text);
-    
-    
+    var element = ('<p><span class="username">'+ message.username + '</span><br/>' + message.text + '</p>');  
     $('#chats').prepend(element);
   },
   renderRoom: function (nameOfRoom) {
@@ -75,7 +76,10 @@ var app = {
     element.setAttribute( 'value', nameOfRoom );
     $('#roomSelect').prepend(element);
   },
-  handleUserNameClick: function () {
+  handleUsernameClick: function () {
     
+  },
+  handleSubmit: function () {
+
   },
 };
