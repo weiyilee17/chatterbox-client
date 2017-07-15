@@ -32,9 +32,10 @@ var app = {
       this.handleSubmit();
     }.bind(this));
     
-    //get all messages
-    var messages = fetch(this.server);
-    console.log(JSON.stringify(messages));
+    
+    var messageList = this.fetch(this.server); 
+    //update rooms
+    //update username + messages for the chat log
   },
   send: function (message) {
     $.ajax({
@@ -57,10 +58,14 @@ var app = {
       //This is the url you should use to communicate with the parse API server.
       url: this.server,
       type: 'GET',
-      dataType: json,
+      dataType: 'json',
       //contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message received');
+        // console.log(data);
+        
+        
+        
       },
       error: function (data) {
         // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
