@@ -21,16 +21,20 @@
 // };
 
 var app = {
-  server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
+  server: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
   init: function () {
-    $('#main').on('click', '.username', function(){
+    $('#main').on('click', '.username', function() {
       this.handleUsernameClick();
-    }.bind(this))
+    }.bind(this));
     
     $('#send').off('submit');
-    $('#send').on('submit', '.submit', function(e){
+    $('#send').on('submit', '.submit', function() {
       this.handleSubmit();
-    }.bind(this))
+    }.bind(this));
+    
+    //get all messages
+    var messages = fetch(this.server);
+    console.log(JSON.stringify(messages));
   },
   send: function (message) {
     $.ajax({
@@ -53,7 +57,7 @@ var app = {
       //This is the url you should use to communicate with the parse API server.
       url: this.server,
       type: 'GET',
-      //data: JSON.stringify(message),
+      dataType: json,
       //contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message received');
@@ -68,18 +72,26 @@ var app = {
     $('#chats').empty();
   },
   renderMessage: function (message) {
-    var element = ('<p><span class="username">'+ message.username + '</span><br/>' + message.text + '</p>');  
+    var element = ('<p><span class="username">' + message.username + '</span><br/>' + message.text + '</p>');  
     $('#chats').prepend(element);
   },
   renderRoom: function (nameOfRoom) {
-    var element = document.createElement('option');
-    element.setAttribute( 'value', nameOfRoom );
-    $('#roomSelect').prepend(element);
+    // var element = document.createElement('option');
+    // element.setAttribute( 'value', nameOfRoom );
+    // $('#roomSelect').prepend(element);
+
+    var $element = $('<option></option>');
+    $element.attr('value', nameOfRoom);
+    $element.text(nameOfRoom);
+    $('#roomSelect').prepend($element);
+    
+  
   },
   handleUsernameClick: function () {
     
   },
   handleSubmit: function () {
-
+    
   },
 };
+
