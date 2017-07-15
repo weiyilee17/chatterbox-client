@@ -23,7 +23,7 @@
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
   init: function () {
-  
+    
   },
   send: function (message) {
     $.ajax({
@@ -58,6 +58,24 @@ var app = {
     });    
   },
   clearMessages: function () {
+    $('#chats').empty();
+  },
+  renderMessage: function (message) {
+    var element = document.createElement('<p>' + message.text + '</p>');
+    //var element = ('<p>' + message.text + '</p>');
+    element.setAttribute('username', message.username);
+    element.setAttribute('roomname', message.roomname);
+    $(username).text(message.text);
+    
+    
+    $('#chats').prepend(element);
+  },
+  renderRoom: function (nameOfRoom) {
+    var element = document.createElement('option');
+    element.setAttribute( 'value', nameOfRoom );
+    $('#roomSelect').prepend(element);
+  },
+  handleUserNameClick: function () {
     
   },
 };
